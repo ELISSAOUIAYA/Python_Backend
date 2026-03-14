@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+  <title>Inscription</title>
+</head>
+<body class="index-page" style="background: #f4f9f4;">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6 card shadow p-4 mt-5">
+        <div class="text-center mb-4">
+            <h2 style="color: #24b7a4;">Créer un compte</h2>
+            <p>Rejoignez le projet FSTT</p>
+        </div>
+        
+        <form action="register" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Mot de passe</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Confirmation</label>
+              <input type="password" name="password2" class="form-control" required>
+            </div>
+          </div>
+
+          {% for message in messages %}
+            <div class="alert alert-warning p-2 text-center">{{message}}</div>
+          {% endfor %}
+
+          <button type="submit" class="btn w-100" style="background: #24b7a4; color: white;">S'inscrire</button>
+          <div class="text-center mt-3">
+            <a href="login" style="color: #666; font-size: 0.9em;">Déjà inscrit ? Se connecter</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

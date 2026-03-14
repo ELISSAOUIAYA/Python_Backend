@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Projet Django - Aya EL ISSAOUI</title>
+
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="/" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">FSTT Django</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Compteur</a></li>
+          
+          {% if user.is_authenticated %}
+            <li class="dropdown"><a href="#"><span>Compte: {{ user.username }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="logout">Déconnexion (Logout)</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li><a href="login">Se connecter</a></li>
+            <li><a href="register" style="background: #24b7a4; color: #fff; padding: 8px 20px; margin-left: 30px; border-radius: 4px;">S'inscrire</a></li>
+          {% endif %}
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section">
+  <img src="{% static 'assets/img/hero-bg-abstract.jpg' %}" alt="" data-aos="fade-in">
+
+  <div class="container">
+    <div class="row justify-content-center" data-aos="zoom-out">
+      <div class="col-xl-7 col-lg-9 text-center">
+        {% if user.is_authenticated %}
+          <h1>Bienvenue {{ user.username }} !</h1>
+          <p>Vous êtes maintenant connecté à votre espace projet.</p>
+        {% else %}
+          <h1>FSTT Django Project</h1>
+          <p>Découvrez notre application de gestion et d'analyse de texte.</p>
+          <div class="text-center">
+            <a href="login" class="btn-get-started" style="background: #24b7a4; color: #fff; padding: 10px 30px; border-radius: 4px; text-decoration: none;">Commencer</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+    <section id="services" class="services section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Nos Fonctionnalités</h2>
+        <p>Données récupérées dynamiquement depuis la base de données SQLite.</p>
+      </div>
+
+      <div class="container">
+        <div class="row gy-4">
+          {% for feature in features %}
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item item-cyan position-relative">
+              <div class="icon">
+                <i class="bi bi-activity"></i>
+              </div>
+              <h3>{{ feature.name }}</h3>
+              <p>{{ feature.details }}</p>
+            </div>
+          </div>
+          {% empty %}
+            <p class="text-center">Aucune fonctionnalité ajoutée dans l'admin.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Compteur de Mots</h2>
+        <p>Saisissez votre texte ci-dessous pour compter le nombre de mots.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <form action="counter" method="POST" class="php-email-form">
+              {% csrf_token %}
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="text" rows="8" placeholder="Entrez votre texte ici..." required></textarea>
+              </div>
+              <div class="text-center mt-3">
+                <button type="submit" style="background: #24b7a4; color: #fff; border: 0; padding: 10px 30px; border-radius: 4px;">Analyser le texte</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background text-center">
+    <div class="container">
+      <p>© 2026 <strong>EL ISSAOUI Aya</strong> - FSTT Tanger</p>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>

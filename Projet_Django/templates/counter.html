@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Résultat - Projet Django</title>
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+</head>
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl d-flex align-items-center me-auto">
+      <a href="/" class="logo d-flex align-items-center me-auto"><h1 class="sitename">FSTT Django</h1></a>
+      <nav id="navmenu" class="navmenu"><ul><li><a href="/">Retour à l'accueil</a></li></ul></nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="section mt-5">
+      <div class="container text-center" data-aos="fade-up">
+        <div class="row justify-content-center">
+          <div class="col-md-6 card shadow p-5">
+            <h2 style="color: #24b7a4;">Résultat du Compteur</h2>
+            <hr>
+            <p class="lead">Votre texte contient exactement :</p>
+            <h3 class="display-4 font-weight-bold">{{ amount }} mots</h3>
+            <a href="/" class="btn mt-4" style="background: #24b7a4; color: white;">Nouveau calcul</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
